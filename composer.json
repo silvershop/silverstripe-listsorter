@@ -1,0 +1,19 @@
+{
+    "name": "burnbright/silverstripe-listsorter",
+    "description": "Easily provide front-end sorting controls for SilverStripe lists",
+    "type": "silverstripe-module",
+    "keywords": ["sort","datalist","arraylist","list","sortable"],
+    "authors": [
+        {
+            "name": "Jeremy Shipman",
+            "email": "jeremy@burnbright.net"
+        }
+    ],
+    "require": {
+		"silverstripe/framework": "3.*",
+        "silverstripe/cms": "3.*"
+    },
+	 "extra": {
+        "installer-name": "listsorter"
+    }
+}
