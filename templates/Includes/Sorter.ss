@@ -2,7 +2,7 @@
 	<p class="sorter">
 		<span calss="sorter_label">Sort By:</span>
 		<% loop Sorter.Sorts %>
-			<span class="sorter_option sorter_direction_$Direction<% if IsCurrent %> sorter_current<% end_if %>">
+			<span class="sorter_option sorter_option_$ID<% if IsCurrent %> sorter_current<% end_if %>">
 				<a href="$Link" title="sort by $Title">$Title</a>
 			</span>
 			<% if not Last %>|<% end_if %>
