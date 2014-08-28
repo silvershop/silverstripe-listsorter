@@ -55,7 +55,6 @@ class ListSorterTest extends SapphireTest{
 	}
 
 	function testListSorterOption() {
-		
 		$option = new ListSorter_Option("Age Title", "Age DESC, Title ASC", //object
 				new ListSorter_Option("Age Title", array("Age" => "ASC", "Title" => "DESC")) //reverse
 		);
@@ -72,7 +71,6 @@ class ListSorterTest extends SapphireTest{
 		$this->assertEquals("age title_rev", (string)$reverse);
 		$this->assertTrue($reverse->isReversable());
 		$this->assertEquals("dev?sort=age+title_rev",$reverse->getLink());
-		
 	}
 
 }
