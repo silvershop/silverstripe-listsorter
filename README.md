@@ -45,7 +45,3 @@ Use my template or roll your own.
 <% end_loop %>
 </ul>
 ```
-
-## Contributions
-
-...are welcomed via pull request. Check the issues list first.

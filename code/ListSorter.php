@@ -64,15 +64,6 @@ class ListSorter extends ViewableData{
 		return $option === $this->getCurrentOption();
 	}
 
-	/*
-	 * Current direction
-	 */
-	public function getDirection() {
-		if($this->current){
-			return $this->current->getDirection();
-		}
-	}
-
 	/**
 	 * Get the available sorting options
 	 */
@@ -106,6 +97,10 @@ class ListSorter extends ViewableData{
 
 }
 
+/**
+ * Encapsulate sort option title, sorting SQL,
+ * GET parameter key, and reverse option.
+ */
 class ListSorter_Option extends ViewableData{
 
 	protected $title;
@@ -169,10 +164,6 @@ class ListSorter_Option extends ViewableData{
 
 	function getLink(){
 		return $this->generateLink($this->getID());
-	}
-
-	function getDirection(){
-
 	}
 
 	/**
