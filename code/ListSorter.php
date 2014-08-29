@@ -152,6 +152,7 @@ class ListSorter_Option extends ViewableData{
 
 	function setID($id) {
 		$this->id = strtolower(trim($id));
+		return $this;
 	}
 
 	function getID() {
