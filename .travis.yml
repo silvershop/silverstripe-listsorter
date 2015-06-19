@@ -1,4 +1,5 @@
 language: php
+sudeo: false
 
 php:
     - 5.3
