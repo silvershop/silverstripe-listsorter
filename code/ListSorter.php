@@ -60,6 +60,14 @@ class ListSorter extends ViewableData{
 		return $this->current;
 	}
 
+	/**
+	 * Set the current sort option
+	 * @param $option
+	 */
+	public function setCurrentOption(ListSorter_Option $option) {
+		$this->current = $option;
+	}
+
 	protected function isCurrent(ListSorter_Option $option) {
 		return $option === $this->getCurrentOption();
 	}
