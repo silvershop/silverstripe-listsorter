@@ -1,0 +1,13 @@
+SilverShop\ListSorter\Tests\Stubs\ListSorterPerson:
+  person3:
+    Title: joe
+    Age: 30
+  person2:
+    Title: beth
+    Age: 20
+  person1:
+    Title: sam
+    Age: 10
+  person4:
+    Title: zoe
+    Age: 10

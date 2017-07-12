@@ -1,0 +1,3 @@
+mappings:
+  ListSorter: SilverShop\ListSorter\ListSorter
+  ListSorter_Option: SilverShop\ListSorter\ListSorterOption

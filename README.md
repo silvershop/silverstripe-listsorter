@@ -1,10 +1,14 @@
 # SilverStripe List Sorter
 
+[![Build Status](http://img.shields.io/travis/silvershop/silverstripe-listsorter.svg?style=flat-square)](https://travis-ci.org/silvershop/silverstripe-listsorter)
+[![Version](http://img.shields.io/packagist/v/silverstripe/sharedraftcontent.svg?style=flat-square)](https://packagist.org/packages/silvershop/silverstripe-listsorter)
+[![License](http://img.shields.io/packagist/l/silverstripe/sharedraftcontent.svg?style=flat-square)](LICENSE.md)
+
 A front-end control for sorting SilverStripe lists easily. The aim of this module is to make sorting lists as simple as it is to use PaginatedList.
 
 ## Requirements
 
- * SilverStripe 3+
+ * SilverStripe 4+
 
 ## Usage
 
@@ -13,14 +17,14 @@ There are a few ways you can define sort options within an array.
 Make a public function on your controller:
 ```php
 function getSorter(){
-	$sorts = array(
+	$sorts = [
 		'Title', //DB field name only
 		'Popularity' => 'Popularity DESC', //map title to sort sql
-		'Price' => array("BasePrice" => "ASC"), //map title to data list sort
-		new ListSorter_Option("Age", "Created DESC", //object
-			new ListSorter_Option("Age", array("Created" => "ASC")) //reverse
+		'Price' => array('BasePrice' => 'ASC'), //map title to data list sort
+		ListSorter_Option::create('Age', 'Created DESC', //object
+			new ListSorter_Option('Age', array('Created' => 'ASC')) //reverse
 		)
-	);
+	;
 	return new ListSorter($this->request,$sorts);
 }
 ```
