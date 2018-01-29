@@ -1,5 +1,5 @@
 {
-    "name": "burnbright/silverstripe-listsorter",
+    "name": "silvershop/silverstripe-listsorter",
     "description": "Easily provide front-end sorting controls for SilverStripe lists",
     "type": "silverstripe-module",
     "keywords": ["sort","datalist","arraylist","list","sortable"],
