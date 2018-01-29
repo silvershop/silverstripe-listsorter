@@ -1,8 +1,11 @@
 {
-    "name": "burnbright/silverstripe-listsorter",
+    "name": "silvershop/silverstripe-listsorter",
     "description": "Easily provide front-end sorting controls for SilverStripe lists",
     "type": "silverstripe-vendormodule",
     "keywords": ["sort","datalist","arraylist","list","sortable"],
+    "replace": {
+        "burnbright/silverstripe-listsorter": "2.*"
+    },
     "authors": [
         {
             "name": "Jeremy Shipman",
