@@ -14,26 +14,18 @@
 	- http://www.phpunit.de/manual/current/en/textui.html
 	- http://doc.silverstripe.org/framework/en/topics/testing/#configuration
 -->
-<phpunit bootstrap="../framework/tests/bootstrap.php" colors="true">
+<phpunit bootstrap="vendor/silverstripe/framework/tests/bootstrap.php" colors="true">
 
 	<testsuite name="Default">
 		<directory>tests</directory>
 	</testsuite>
-	
-	<listeners>
-		<listener class="SS_TestListener" file="../framework/dev/TestListener.php" />
-	</listeners>
-	
-	<groups>
-		<exclude>
-			<group>sanitychecks</group>
-		</exclude>
-	</groups>
 
 	<filter>
-		<whitelist processUncoveredFilesFromWhitelist="true">
-			<directory suffix=".php">code</directory>
+		<whitelist addUncoveredFilesFromWhitelist="true">
+			<directory suffix=".php">src/</directory>
+			<exclude>
+				<directory suffix=".php">tests/</directory>
+			</exclude>
 		</whitelist>
 	</filter>
-
 </phpunit>

@@ -1,0 +1,3 @@
+mappings:
+  ListSorterTest: SilverShop\ListSorter\Tests\ListSorterTest
+  ListSorterTest_Person: SilverShop\ListSorter\Tests\ListSorterTestPerson
