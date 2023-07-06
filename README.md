@@ -1,6 +1,6 @@
 # SilverStripe List Sorter
 
-[![Build Status](http://img.shields.io/travis/silvershop/silverstripe-listsorter.svg?style=flat-square)](https://travis-ci.org/silvershop/silverstripe-listsorter)
+[![CI](https://github.com/silvershop/silverstripe-listsorter/actions/workflows/ci.yml/badge.svg)](https://github.com/silvershop/silverstripe-listsorter/actions/workflows/ci.yml)
 [![Version](http://img.shields.io/packagist/v/silverstripe/sharedraftcontent.svg?style=flat-square)](https://packagist.org/packages/silvershop/silverstripe-listsorter)
 [![License](http://img.shields.io/packagist/l/silverstripe/sharedraftcontent.svg?style=flat-square)](LICENSE.md)
 
