@@ -86,13 +86,13 @@ class ListSorterTest extends SapphireTest
         $this->assertEquals('age title', $option->getID());
         $this->assertEquals('age title', (string)$option);
         $this->assertTrue($option->isReversable());
-        $this->assertEquals('?url=%2F&sort=age+title', $option->getLink());
+        $this->assertEquals('/?colors=always&url=%2F&sort=age+title', $option->getLink());
 
         $reverse = $option->getReverseOption();
         $this->assertEquals('Age Title', $reverse->getTitle());
         $this->assertEquals('age title_rev', $reverse->getID());
         $this->assertEquals('age title_rev', (string)$reverse);
         $this->assertTrue($reverse->isReversable());
-        $this->assertEquals('?url=%2F&sort=age+title_rev', $reverse->getLink());
+        $this->assertEquals('/?colors=always&url=%2F&sort=age+title_rev', $reverse->getLink());
     }
 }
