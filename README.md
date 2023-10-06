@@ -8,7 +8,7 @@ A front-end control for sorting SilverStripe lists easily. The aim of this modul
 
 ## Requirements
 
- * SilverStripe 4+
+ * SilverStripe 4+ or 5+
 
 ## Usage
 
@@ -16,16 +16,16 @@ There are a few ways you can define sort options within an array.
 
 Make a public function on your controller:
 ```php
-function getSorter(){
+public function getSorter(){
 	$sorts = [
 		'Title', //DB field name only
 		'Popularity' => 'Popularity DESC', //map title to sort sql
-		'Price' => array('BasePrice' => 'ASC'), //map title to data list sort
-		ListSorter_Option::create('Age', 'Created DESC', //object
-			new ListSorter_Option('Age', array('Created' => 'ASC')) //reverse
+		'Price' => ['BasePrice' => 'ASC'], //map title to data list sort
+		ListSorter_Option::create('Age', ['Created' => 'DESC'], //object
+			ListSorter_Option::create('Age', ['Created' => 'ASC']) //reverse
 		)
 	;
-	return new ListSorter($this->request,$sorts);
+	return ListSorter::create($this->request,$sorts);
 }
 ```
 
@@ -48,4 +48,58 @@ Use my template or roll your own.
 	<li>$Title</li>
 <% end_loop %>
 </ul>
+```
+
+## Usage with Silvershop
+
+Silvershop's PageCategoryController comes with some sortings predefined. If you want to define your own sorting possibilities, you can add an Extension to ProductCategory like this:
+
+```php
+<?php
+
+namespace MyNamespace\SilverShop\Extensions;
+
+use SilverShop\ListSorter\ListSorter;
+use SilverShop\ListSorter\ListSorterOption;
+use SilverStripe\Core\Extension;
+use SilverStripe\Security\Security;
+
+class ProductCategorySorting extends Extension
+{
+
+    public function updateSorter(ListSorter $sorter)
+    {
+
+        $basePriceOptionDESC = ListSorterOption::create('BasePrice highest first', ['BasePrice' => 'DESC']);
+        $basePriceOptionASC = ListSorterOption::create('BasePrice lowest first', ['BasePrice' => 'ASC']);
+
+        $titleOptionASC = ListSorterOption::create('Title a-z', ['Title' => 'ASC']);
+        $titleOptionDESC = ListSorterOption::create('Title z-a', ['Title' => 'DESC']);
+
+        $newestOption = ListSorterOption::create('Newest first', ['Created' => 'DESC']);
+
+        $popularityOption = ListSorterOption::create('Most Popular', ['Popularity' => 'DESC']);
+
+//overwrite all settings
+//you can use $sorter->addSortOption($option) if you want to add a sort option
+
+        $sorter->setSortOptions([
+            $basePriceOptionASC,
+            $basePriceOptionDESC,
+            $titleOptionASC,
+            $titleOptionDESC,
+            $newestOption,
+            $popularityOption
+        ]);
+    }
+}
+
+```
+
+Then add this extension to ProductCategoryController in your config:
+
+```yaml
+SilverShop\Page\ProductCategoryController:
+  extensions:
+    - MyNamespace\Silvershop\Extensions\ProductCategorySorting
 ```
