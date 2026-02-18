@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace SilverShop\ListSorter\Tests;
 
 use SilverStripe\Control\HTTPRequest;
@@ -8,7 +10,7 @@ use SilverShop\ListSorter\ListSorter;
 use SilverShop\ListSorter\ListSorterOption;
 use SilverShop\ListSorter\Tests\Stubs\ListSorterPerson;
 
-class ListSorterTest extends SapphireTest
+final class ListSorterTest extends SapphireTest
 {
     protected static $fixture_file = 'fixture.yaml';
 
@@ -16,7 +18,7 @@ class ListSorterTest extends SapphireTest
         ListSorterPerson::class
     ];
 
-    public function testSorting()
+    public function testSorting(): void
     {
         $list = ListSorterPerson::get();
 
@@ -74,7 +76,7 @@ class ListSorterTest extends SapphireTest
         );
     }
 
-    public function testListSorterOption()
+    public function testListSorterOption(): void
     {
         $option = ListSorterOption::create(
             'Age Title',
@@ -86,13 +88,13 @@ class ListSorterTest extends SapphireTest
         $this->assertEquals('age title', $option->getID());
         $this->assertEquals('age title', (string)$option);
         $this->assertTrue($option->isReversable());
-        $this->assertEquals('/?colors=always&url=%2F&sort=age+title', $option->getLink());
+        $this->assertEquals('/?url=%2F&sort=age+title', $option->getLink());
 
         $reverse = $option->getReverseOption();
         $this->assertEquals('Age Title', $reverse->getTitle());
         $this->assertEquals('age title_rev', $reverse->getID());
         $this->assertEquals('age title_rev', (string)$reverse);
         $this->assertTrue($reverse->isReversable());
-        $this->assertEquals('/?colors=always&url=%2F&sort=age+title_rev', $reverse->getLink());
+        $this->assertEquals('/?url=%2F&sort=age+title_rev', $reverse->getLink());
     }
 }

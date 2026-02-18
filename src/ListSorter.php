@@ -1,19 +1,23 @@
 <?php
 
+declare(strict_types=1);
+
 namespace SilverShop\ListSorter;
 
+use SilverStripe\Model\List\ArrayList;
+use SilverStripe\Model\ModelData;
 use SilverStripe\Control\HTTPRequest;
-use SilverStripe\ORM\ArrayList;
 use SilverStripe\ORM\DataList;
-use SilverStripe\View\ViewableData;
 
 /**
  * Control for front-end sorting manipulations
  */
-class ListSorter extends ViewableData
+class ListSorter extends ModelData
 {
-    private $request;
-    private $sortOptions = [];
+    private HTTPRequest $request;
+
+    private array $sortOptions = [];
+
     private $current;
 
     public function __construct(HTTPRequest $request, $options = null)
@@ -29,18 +33,19 @@ class ListSorter extends ViewableData
      *
      * @param array $options
      */
-    public function setSortOptions($options)
+    public function setSortOptions($options): void
     {
         $this->sortOptions = [];
         foreach ($options as $key => $value) {
             if (is_numeric($key)) {
                 $key = $value;
             }
+
             if ($value instanceof ListSorterOption) {
                 $this->addSortOption($value);
             } else {
                 $this->addSortOption(
-                    new ListSorterOption($key, $value)
+                    ListSorterOption::create($key, $value)
                 );
             }
         }
@@ -48,16 +53,15 @@ class ListSorter extends ViewableData
 
     /**
      * Add sort option, and set according to sort request param.
-     *
-     * @param ListSorterOption $option
      */
-    public function addSortOption(ListSorterOption $option)
+    public function addSortOption(ListSorterOption $option): void
     {
         $this->sortOptions[(string)$option] = $option;
         $requestparam = $this->request->getVar('sort');
         if ((string)$option === $requestparam) {
             $this->current = $option;
         }
+
         if ((string)$option->getReverseOption() === $requestparam) {
             $this->current = $option->getReverseOption();
         }
@@ -78,12 +82,12 @@ class ListSorter extends ViewableData
      *
      * @param $option
      */
-    public function setCurrentOption(ListSorterOption $option)
+    public function setCurrentOption(ListSorterOption $option): void
     {
         $this->current = $option;
     }
 
-    protected function isCurrent(ListSorterOption $option)
+    protected function isCurrent(ListSorterOption $option): bool
     {
         return $option === $this->getCurrentOption();
     }
@@ -99,8 +103,10 @@ class ListSorter extends ViewableData
                 if ($option->isReversable()) {
                     $option = $option->getReverseOption();
                 }
+
                 $option = $option->customise(['IsCurrent' => true]);
             }
+
             $sorts->push($option);
         }
 
@@ -116,7 +122,7 @@ class ListSorter extends ViewableData
     public function sortList($list)
     {
         if ($current = $this->getCurrentOption()) {
-            $list = $list->sort($current->getSortSet());
+            return $list->sort($current->getSortSet());
         }
 
         return $list;

@@ -1,19 +1,24 @@
 <?php
 
+declare(strict_types=1);
+
 namespace SilverShop\ListSorter;
 
+use SilverStripe\Model\ModelData;
 use SilverStripe\Control\HTTP;
-use SilverStripe\View\ViewableData;
 
 /**
  * Encapsulate sort option title, sorting SQL,
  * GET parameter key, and reverse option.
  */
-class ListSorterOption extends ViewableData
+class ListSorterOption extends ModelData
 {
     protected $title;
+
     protected $id;
+
     protected $sortSet;
+
     protected $reverseOption;
 
     public function __construct($title, $sortset, ListSorterOption $reverseOption = null)
@@ -21,7 +26,7 @@ class ListSorterOption extends ViewableData
         $this->title = $title;
         $this->setID($title);
         $this->sortSet = $sortset;
-        if ($reverseOption) {
+        if ($reverseOption instanceof \SilverShop\ListSorter\ListSorterOption) {
             $this->setReverseOption($reverseOption);
         }
     }
@@ -31,7 +36,7 @@ class ListSorterOption extends ViewableData
         return $this->title;
     }
 
-    public function setTitle($title)
+    public function setTitle($title): static
     {
         $this->title = $title;
         return $this;
@@ -42,15 +47,17 @@ class ListSorterOption extends ViewableData
         return $this->sortSet;
     }
 
-    public function setReverseOption(ListSorterOption $option)
+    public function setReverseOption(ListSorterOption $option): static
     {
         $this->reverseOption = $option;
         if (!$option->isReversable()) {
             if ($this->getID() === $option->getID()) {
-                $option->setID((string)$option . "_rev");
+                $option->setID($option . "_rev");
             }
+
             $option->setReverseOption($this);
         }
+
         return $this;
     }
 
@@ -59,12 +66,12 @@ class ListSorterOption extends ViewableData
         return $this->reverseOption;
     }
 
-    public function isReversable()
+    public function isReversable(): bool
     {
         return (bool)$this->reverseOption;
     }
 
-    public function setID($id)
+    public function setID($id): static
     {
         $this->id = strtolower(trim($id));
         return $this;
@@ -75,7 +82,7 @@ class ListSorterOption extends ViewableData
         return $this->id;
     }
 
-    public function __toString()
+    public function __toString(): string
     {
         return $this->id;
     }
@@ -93,9 +100,8 @@ class ListSorterOption extends ViewableData
      */
     private function generateLink($id)
     {
-        $url = Http::setGetVar('sort', $id, null, '&');
         //TODO: strip "start" pagination parameter,
         //as most users won't want to remain on paginated page when sorting
-        return $url;
+        return Http::setGetVar('sort', $id, null, '&');
     }
 }
