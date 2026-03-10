@@ -8,7 +8,7 @@ A front-end control for sorting SilverStripe lists easily. The aim of this modul
 
 ## Requirements
 
- * SilverStripe 4+ or 5+
+ * SilverStripe ^6
 
 ## Usage
 
@@ -21,10 +21,10 @@ public function getSorter(){
 		'Title', //DB field name only
 		'Popularity' => 'Popularity DESC', //map title to sort sql
 		'Price' => ['BasePrice' => 'ASC'], //map title to data list sort
-		ListSorter_Option::create('Age', ['Created' => 'DESC'], //object
-			ListSorter_Option::create('Age', ['Created' => 'ASC']) //reverse
-		)
-	;
+		ListSorterOption::create('Age', ['Created' => 'DESC']), //object
+		ListSorterOption::create('Age', ['Created' => 'ASC']) //reverse
+    ];
+
 	return ListSorter::create($this->request,$sorts);
 }
 ```
