@@ -1,0 +1,10 @@
+includes:
+    - vendor/cambis/silverstan/extension.neon
+
+parameters:
+    level: 6
+    paths:
+        - src
+        - tests/php
+    excludePaths:
+        - tests/php/Stubs

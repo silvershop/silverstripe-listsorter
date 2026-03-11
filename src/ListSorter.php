@@ -16,11 +16,15 @@ class ListSorter extends ModelData
 {
     private HTTPRequest $request;
 
+    /** @var array<string, ListSorterOption> */
     private array $sortOptions = [];
 
-    private $current;
+    private ?ListSorterOption $current = null;
 
-    public function __construct(HTTPRequest $request, $options = null)
+    /**
+     * @param array<int|string, ListSorterOption|string>|null $options
+     */
+    public function __construct(HTTPRequest $request, ?array $options = null)
     {
         $this->request = $request;
         if (is_array($options)) {
@@ -31,9 +35,9 @@ class ListSorter extends ModelData
     /**
      * Replace all sort options with a new array
      *
-     * @param array $options
+     * @param array<int|string, ListSorterOption|string> $options
      */
-    public function setSortOptions($options): void
+    public function setSortOptions(array $options): void
     {
         $this->sortOptions = [];
         foreach ($options as $key => $value) {
@@ -69,10 +73,8 @@ class ListSorter extends ModelData
 
     /**
      * Current sort option
-     *
-     * @return ListSorterOption|null
      */
-    protected function getCurrentOption()
+    protected function getCurrentOption(): ?ListSorterOption
     {
         return $this->current;
     }
@@ -94,8 +96,10 @@ class ListSorter extends ModelData
 
     /**
      * Get the available sorting options
+     *
+     * @return ArrayList<ListSorterOption>
      */
-    public function getSorts()
+    public function getSorts(): ArrayList
     {
         $sorts = ArrayList::create();
         foreach ($this->sortOptions as $option) {
@@ -116,10 +120,11 @@ class ListSorter extends ModelData
     /**
      * Sort the given data list with the current sort
      *
-     * @param  DataList $list
-     * @return DataList
+     * @template T of \SilverStripe\ORM\DataObject
+     * @param DataList<T> $list
+     * @return DataList<T>
      */
-    public function sortList($list)
+    public function sortList(DataList $list): DataList
     {
         if ($current = $this->getCurrentOption()) {
             return $list->sort($current->getSortSet());

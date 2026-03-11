@@ -13,15 +13,19 @@ use SilverStripe\Control\HTTP;
  */
 class ListSorterOption extends ModelData
 {
-    protected $title;
+    protected string $title;
 
-    protected $id;
+    protected string $id;
 
-    protected $sortSet;
+    /** @var string|array<string, string> */
+    protected string|array $sortSet;
 
-    protected $reverseOption;
+    protected ?ListSorterOption $reverseOption = null;
 
-    public function __construct($title, $sortset, ListSorterOption $reverseOption = null)
+    /**
+     * @param string|array<string, string> $sortset
+     */
+    public function __construct(string $title, string|array $sortset, ?ListSorterOption $reverseOption = null)
     {
         $this->title = $title;
         $this->setID($title);
@@ -31,18 +35,21 @@ class ListSorterOption extends ModelData
         }
     }
 
-    public function getTitle()
+    public function getTitle(): string
     {
         return $this->title;
     }
 
-    public function setTitle($title): static
+    public function setTitle(string $title): static
     {
         $this->title = $title;
         return $this;
     }
 
-    public function getSortSet()
+    /**
+     * @return string|array<string, string>
+     */
+    public function getSortSet(): string|array
     {
         return $this->sortSet;
     }
@@ -61,7 +68,7 @@ class ListSorterOption extends ModelData
         return $this;
     }
 
-    public function getReverseOption()
+    public function getReverseOption(): ?ListSorterOption
     {
         return $this->reverseOption;
     }
@@ -71,13 +78,13 @@ class ListSorterOption extends ModelData
         return (bool)$this->reverseOption;
     }
 
-    public function setID($id): static
+    public function setID(string $id): static
     {
         $this->id = strtolower(trim($id));
         return $this;
     }
 
-    public function getID()
+    public function getID(): string
     {
         return $this->id;
     }
@@ -87,18 +94,15 @@ class ListSorterOption extends ModelData
         return $this->id;
     }
 
-    public function getLink()
+    public function getLink(): string
     {
         return $this->generateLink($this->getID());
     }
 
     /**
      * Helper for creating sort links
-     *
-     * @param  $id
-     * @return string
      */
-    private function generateLink($id)
+    private function generateLink(string $id): string
     {
         //TODO: strip "start" pagination parameter,
         //as most users won't want to remain on paginated page when sorting

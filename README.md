@@ -10,6 +10,12 @@ A front-end control for sorting SilverStripe lists easily. The aim of this modul
 
  * SilverStripe ^6
 
+## Installation
+
+```sh
+composer require silvershop/silverstripe-listsorter
+```
+
 ## Usage
 
 There are a few ways you can define sort options within an array.

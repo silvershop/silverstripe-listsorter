@@ -10,8 +10,8 @@ indent_style = space
 insert_final_newline = true
 trim_trailing_whitespace = true
 
-[{*.yml,package.json}]
-indent_size = 2
+[*.php]
+indent_size = 4
 
-# The indent size used in the package.json file cannot be changed:
-# https://github.com/npm/npm/pull/3180#issuecomment-16336516
+[{*.yml,*.yaml,*.json,*.md}]
+indent_size = 2
