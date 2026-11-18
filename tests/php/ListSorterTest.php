@@ -4,7 +4,9 @@ declare(strict_types=1);
 
 namespace SilverShop\ListSorter\Tests;
 
+use SilverStripe\Control\Controller;
 use SilverStripe\Control\HTTPRequest;
+use SilverStripe\Control\Session;
 use SilverStripe\Dev\SapphireTest;
 use SilverShop\ListSorter\ListSorter;
 use SilverShop\ListSorter\ListSorterOption;
@@ -77,6 +79,23 @@ final class ListSorterTest extends SapphireTest
     }
 
     public function testListSorterOption(): void
+    {
+        // links are built from the current request; use a clean one so CLI arguments
+        // (which the CLI bootstrap turns into GET vars) don't leak into the expected URLs
+        $controller = Controller::create();
+        $request = new HTTPRequest('GET', '/', ['url' => '/']);
+        $request->setSession(new Session([]));
+        $controller->setRequest($request);
+        $controller->pushCurrent();
+
+        try {
+            $this->assertListSorterOption();
+        } finally {
+            $controller->popCurrent();
+        }
+    }
+
+    private function assertListSorterOption(): void
     {
         $option = ListSorterOption::create(
             'Age Title',
